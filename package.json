@@ -12,7 +12,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch --experimental-transform-types 1.app.ts"
+    "dev": "node --watch --experimental-transform-types 1.app.ts",
+    "start": "node --watch --experimental-transform-types 1.app.ts"
   },
   "repository": {
     "type": "git",
