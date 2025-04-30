@@ -13,7 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node 1.app.js",
-    "start": "node types 1.app.js"
+    "start": "node 1.app.js"
   },
   "repository": {
     "type": "git",
