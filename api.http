@@ -1,0 +1,12 @@
+GET https://rest-api-deploy-xi.vercel.app/movies
+
+HTTP/1.1 404  - Not Found
+cache-control: public, max-age=0, must-revalidate
+content-length: 79
+content-type: text/plain; charset=utf-8
+date: Wed, 30 Apr 2025 01:11:44 GMT
+server: Vercel
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+x-vercel-error: NOT_FOUND
+x-vercel-id: gru1::rtpxm-1745975503801-c77c3dfe3be2
+connection: close
