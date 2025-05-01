@@ -10,3 +10,23 @@ server: railway-edge
 x-railway-edge: railway/us-west1
 x-railway-request-id: cl8ulwvnROaNPcsiv6JxzA_2395810083
 connection: close
+###
+GET http://localhost:3000/movies
+
+HTTP/1.1 200  - OK
+vary: Origin
+content-type: application/json; charset=utf-8
+content-length: 751
+etag: W/"2ef-cpwwSQhJVoy4RNO9L8KYIXEcwAk"
+date: Thu, 01 May 2025 21:35:37 GMT
+connection: close
+###
+GET http://localhost:3000/movies/78940913-26c8-11f0-b05b-cecd02c812d5
+
+HTTP/1.1 200  - OK
+vary: Origin
+content-type: application/json; charset=utf-8
+content-length: 238
+etag: W/"ee-rKKgsHrfGHlCoewGkVvcoJ452Fo"
+date: Thu, 01 May 2025 21:36:23 GMT
+connection: close
