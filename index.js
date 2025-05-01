@@ -1,6 +1,7 @@
 const express = require('express');
 const movies = require("./movies.json");
 const crypto = require("node:crypto");
+const cors = require("cors");
 const { validateMovie, validatePartialMovie } = require("./schemas/movies.js");
 
 const app = express();
@@ -21,15 +22,20 @@ app.disable("x-powered-by");
 
 app.use(express.json());
 
+app.use(cors({
+    origin: (origin, callback) => {
+        if(ACCEPTED_ORIGINS.includes(origin) || !origin) {
+            return callback(null, true);
+        }
+        return callback(new Error("CORS origin not allowed ❌"));
+    },
+}));
+
 app.get("/", (req, res) => {
     res.json({ message: "¡Hola, mundo! 👋" });
 });
 
 app.get("/movies", (req, res) => {
-    const origin = req.header("origin");
-    if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-        res.header("Access-Control-Allow-Origin", origin);
-    }
     const { genre } = req.query;
     if(genre) {
         const filteredMovies = movies.filter((movie) => movie.genre.some((g) => g.toLowerCase() === genre.toLowerCase()));
@@ -72,10 +78,6 @@ app.patch("/movies/:id", (req, res) => {
 });
 
 app.delete("/movies/:id", (req, res) => {
-    const origin = req.header("origin");
-    if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-        res.header("Access-Control-Allow-Origin", origin);
-    }
     const { id } = req.params;
     const movieIndex = movies.findIndex((movie) => movie.id === id);
     if (movieIndex === -1) return res.status(404).json({ message: "Movie not found ❌" });
@@ -84,10 +86,6 @@ app.delete("/movies/:id", (req, res) => {
 });
 
 app.options("/movies/:id", (req, res) => {
-    const origin = req.header("origin");
-    if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-        res.header("Access-Control-Allow-Origin", origin);
-    }
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
     res.send(200);
 });
