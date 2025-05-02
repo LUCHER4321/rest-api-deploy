@@ -35,10 +35,11 @@ export class MovieModel {
                 'SELECT BIN_TO_UUID(movie.id) id, title, year, director, duration, poster, rate FROM movie, movie_genres WHERE movie_genres.genre_id = ? AND id = movie_id GROUP BY id;',
                 [id]
             );
-            return movies.map(async movie => ({
+            const moviesWithGenres = movies.map(async movie => ({
                 ...movie,
                 genre: await MovieModel.getGenresByMovie({ id: movie.id }),
             }));
+            return Promise.all(moviesWithGenres);
         }
         const [movies] = await connection.query('SELECT BIN_TO_UUID(id) id, title, year, director, duration, poster, rate FROM movie;');
         const moviesWithGenres = movies.map(async movie => ({
@@ -79,6 +80,16 @@ export class MovieModel {
             );
         } catch(e){
             throw new Error("Error creating movie");
+        }
+        for(const g of genreInput){
+            try{
+                await connection.query(
+                    "INSERT INTO movie_genres (movie_id, genre_id) VALUES (UUID_TO_BIN(?), (SELECT id FROM genre WHERE name = ?));",
+                    [uuid, g]
+                );
+            } catch(e){
+                throw new Error("Error creating movie genre");
+            }
         }
         const [movies] = await connection.query(
             "SELECT BIN_TO_UUID(id) id, title, year, director, duration, poster, rate FROM movie WHERE id = UUID_TO_BIN(?);",
