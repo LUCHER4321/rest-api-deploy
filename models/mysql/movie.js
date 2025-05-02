@@ -13,15 +13,27 @@ const configSQL = {
 
 const connection = await mysql.createConnection(configSQL);
 
-export class MovieModel {
-    static getGenresByMovie = async ({ id }) => {
-        const [genres] = await connection.query(
-            "SELECT name FROM genre, movie_genres WHERE movie_id = UUID_TO_BIN(?) AND genre_id = id GROUP BY id;",
-            [id]
-        );
-        return genres.map(genre => genre.name);
-    }
+const getGenresByMovie = async ({ id }) => {
+    const [genres] = await connection.query(
+        "SELECT name FROM genre, movie_genres WHERE movie_id = UUID_TO_BIN(?) AND genre_id = id GROUP BY id;",
+        [id]
+    );
+    return genres.map(genre => genre.name);
+};
 
+const movieFormat = (movie) => {
+    return {
+        id: movie.id,
+        title: movie.title,
+        year: movie.year,
+        director: movie.director,
+        duration: movie.duration,
+        poster: movie.poster,
+        rate: Number(movie.rate),
+    };
+};
+
+export class MovieModel {
     static getAll = async ({ genre }) => {
         if(genre){
             const lowerCaseGenre = genre.toLowerCase();
@@ -37,14 +49,14 @@ export class MovieModel {
             );
             const moviesWithGenres = movies.map(async movie => ({
                 ...movie,
-                genre: await MovieModel.getGenresByMovie({ id: movie.id }),
+                genre: await getGenresByMovie({ id: movie.id }),
             }));
             return Promise.all(moviesWithGenres);
         }
         const [movies] = await connection.query('SELECT BIN_TO_UUID(id) id, title, year, director, duration, poster, rate FROM movie;');
         const moviesWithGenres = movies.map(async movie => ({
-            ...movie,
-            genre: await MovieModel.getGenresByMovie({ id: movie.id }),
+            ...movieFormat(movie),
+            genre: await getGenresByMovie({ id: movie.id }),
         }));
         return Promise.all(moviesWithGenres);
     }
@@ -56,8 +68,8 @@ export class MovieModel {
         );
         if (movies.length === 0) return null;
         return {
-            ...movies[0],
-            genre: await MovieModel.getGenresByMovie({ id }),
+            ...movieFormat(movies[0]),
+            genre: await getGenresByMovie({ id }),
         };
     }
 
@@ -96,8 +108,8 @@ export class MovieModel {
             [uuid]
         );
         return {
-            ...movies[0],
-            genre: await MovieModel.getGenresByMovie({ id }),
+            ...movieFormat(movies[0]),
+            genre: await getGenresByMovie({ id }),
         };
     }
 
@@ -122,8 +134,8 @@ export class MovieModel {
             [id]
         );
         return {
-            ...movies[0],
-            genre: await MovieModel.getGenresByMovie({ id }),
+            ...movieFormat(movies[0]),
+            genre: await getGenresByMovie({ id }),
         };
     }
 }
