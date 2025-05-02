@@ -1,32 +1,50 @@
-GET https://rest-api-deploy-production-4379.up.railway.app/movies
+GET https://rest-api-deploy-xf6e.onrender.com/movies
 
 HTTP/1.1 200  - OK
-access-control-allow-origin: undefined
-content-length: 4024
+date: Fri, 02 May 2025 15:42:50 GMT
 content-type: application/json; charset=utf-8
-date: Wed, 30 Apr 2025 02:14:35 GMT
-etag: W/"fb8-XLTdrSNKTsBfAiMOjB3qDTPapsw"
-server: railway-edge
-x-railway-edge: railway/us-west1
-x-railway-request-id: cl8ulwvnROaNPcsiv6JxzA_2395810083
+content-length: 352
 connection: close
+content-encoding: br
+etag: W/"2e7-QO81oJvUulmQ++aKdLVASNUXuhQ"
+rndr-id: e080e542-7502-46fa
+vary: Origin, Accept-Encoding
+x-render-origin-server: Render
+cf-cache-status: DYNAMIC
+server: cloudflare
+cf-ray: 9398a1796d2db4cb-SCL
+alt-svc: h3=":443"; ma=86400
 ###
-GET http://localhost:3000/movies
+GET https://rest-api-deploy-xf6e.onrender.com/movies/78940913-26c8-11f0-b05b-cecd02c812d5
 
 HTTP/1.1 200  - OK
-vary: Origin
+date: Fri, 02 May 2025 15:43:12 GMT
 content-type: application/json; charset=utf-8
-content-length: 751
-etag: W/"2ef-cpwwSQhJVoy4RNO9L8KYIXEcwAk"
-date: Thu, 01 May 2025 21:35:37 GMT
+content-length: 185
 connection: close
+content-encoding: br
+etag: W/"ec-tVKOETgpE/3tvzKosvGFe3QGfoY"
+rndr-id: 30ddc8f5-8fee-4ac4
+vary: Origin, Accept-Encoding
+x-render-origin-server: Render
+cf-cache-status: DYNAMIC
+server: cloudflare
+cf-ray: 9398a2024a45e7a0-SCL
+alt-svc: h3=":443"; ma=86400
 ###
-GET http://localhost:3000/movies/78940913-26c8-11f0-b05b-cecd02c812d5
+GET https://rest-api-deploy-xf6e.onrender.com/movies?genre=action
 
 HTTP/1.1 200  - OK
-vary: Origin
+date: Fri, 02 May 2025 15:43:27 GMT
 content-type: application/json; charset=utf-8
-content-length: 238
-etag: W/"ee-rKKgsHrfGHlCoewGkVvcoJ452Fo"
-date: Thu, 01 May 2025 21:36:23 GMT
+content-length: 291
 connection: close
+content-encoding: br
+etag: W/"200-RsOAKl3EipYtbTtKp85KaMGJriU"
+rndr-id: 4bdff3a3-7c67-4ee5
+vary: Origin, Accept-Encoding
+x-render-origin-server: Render
+cf-cache-status: DYNAMIC
+server: cloudflare
+cf-ray: 9398a25f9e65a5f0-SCL
+alt-svc: h3=":443"; ma=86400
